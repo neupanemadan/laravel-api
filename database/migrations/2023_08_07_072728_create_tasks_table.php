@@ -16,11 +16,11 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->timestamp('start_date')->nullable(false); // Not nullable
-            $table->timestamp('end_date')->nullable(false);   // Not nullable
-            $table->boolean('is_deleted')->default(false);    // Default value is false
+            $table->timestamp('start_date')->nullable(false)->useCurrent();;
+            $table->timestamp('end_date')->nullable(false)->useCurrent(); // Set default to current timestamp
+            $table->boolean('is_deleted')->default(false);
             $table->string('remarks');
-            $table->string('priority')->nullable();           // Nullable
+            $table->string('priority')->nullable();
             $table->timestamps();
         });
     }
