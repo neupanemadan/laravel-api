@@ -19,7 +19,7 @@ return new class extends Migration
             $table->timestamp('start_date')->nullable(false)->useCurrent();;
             $table->timestamp('end_date')->nullable(false)->useCurrent(); // Set default to current timestamp
             $table->boolean('is_deleted')->default(false);
-            $table->string('remarks');
+            $table->string('remarks')->nullable();
             $table->string('priority')->nullable();
             $table->timestamps();
         });

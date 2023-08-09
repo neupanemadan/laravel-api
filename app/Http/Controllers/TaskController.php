@@ -28,7 +28,6 @@ class TaskController extends Controller
             'start_date' => 'required|date_format:Y-m-d H:i:s',
             'end_date' => 'required|date_format:Y-m-d H:i:s',
             'priority' => 'required|string',
-            'remarks' => 'string',
         ]);
 
         $task = Task::create([
