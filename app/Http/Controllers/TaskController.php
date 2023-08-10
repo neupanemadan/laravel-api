@@ -68,7 +68,6 @@ class TaskController extends Controller
         $task->start_date = $request->start_date;
         $task->end_date = $request->end_date;
         $task->priority = $request->priority;
-        $task->is_deleted = $request->is_deleted;
         $task->remarks = $request->remarks;
         $task->save();
 
