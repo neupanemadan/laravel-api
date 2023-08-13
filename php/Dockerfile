@@ -48,4 +48,6 @@ RUN docker-php-ext-install \
 RUN apt-get install -y libpq-dev \
     && docker-php-ext-install pdo mysqli pdo_mysql
 
+RUN pwd
+
 RUN chmod -R 777 /var/www/storage/ /var/www/bootstrap/cache
