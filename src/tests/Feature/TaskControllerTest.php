@@ -18,7 +18,6 @@ class TaskControllerTest extends TestCase
         Mockery::close();
     }
 
-    
     public function testShow()
     {
         $mockedTask = Mockery::mock(Task::class);
@@ -30,7 +29,11 @@ class TaskControllerTest extends TestCase
         $responseData = $response->getData();
     
         $this->assertSame('success', $responseData->status);
-        $this->assertNull($responseData->task);
+        $this->assertNull($responseData->task); // Assert that the task property is null
     }
+    
+    
+
+    // Similar tests for update and destroy methods...
 }
 
