@@ -28,7 +28,6 @@ class TaskController extends Controller
             'start_date' => 'required|date_format:Y-m-d H:i:s',
             'end_date' => 'required|date_format:Y-m-d H:i:s',
             'priority' => 'required|string',
-            'remarks' => 'string',
         ]);
 
         $task = Task::create([
@@ -61,9 +60,7 @@ class TaskController extends Controller
             'name' => 'required|string',
             'start_date' => 'required|date_format:Y-m-d H:i:s',
             'end_date' => 'required|date_format:Y-m-d H:i:s',
-            'priority' => 'required|string',
-            'is_deleted' => 'boolean',
-            'remarks' => 'string',
+            'priority' => 'required|string'
         ]);
 
         $task = Task::find($id);
@@ -71,7 +68,6 @@ class TaskController extends Controller
         $task->start_date = $request->start_date;
         $task->end_date = $request->end_date;
         $task->priority = $request->priority;
-        $task->is_deleted = $request->is_deleted;
         $task->remarks = $request->remarks;
         $task->save();
 

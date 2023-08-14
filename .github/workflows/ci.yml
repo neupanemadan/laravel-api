@@ -1,0 +1,50 @@
+name: WorkFlow
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  app-tests:
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: laravel_api
+        ports:
+          - 3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+      - name: Copy .env
+        run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+        working-directory: ./src
+      - name: Install Composer Dependencies
+        run: composer install
+        working-directory: ./src
+      - name: Generate key
+        run: php artisan key:generate
+        working-directory: ./src
+      - name: Generate Jwt Token
+        run: php artisan jwt:secret
+        working-directory: ./src
+      - name: Generate Migrate
+        run: php artisan migrate
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_DATABASE: laravel_api
+          DB_USER: root
+
+        working-directory: ./src
+      - name: Execute tests (Unit and Feature tests) using PHPUnit
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+        run: ./vendor/bin/phpunit
+        working-directory: ./src
