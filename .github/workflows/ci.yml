@@ -35,6 +35,9 @@ jobs:
       - name: Generate Jwt Token
         run: php artisan jwt:secret
         working-directory: ./src
+      - name: Generate Migrate
+        run: php artisan migrate
+        working-directory: ./src
       - name: Execute tests (Unit and Feature tests) using PHPUnit
         env:
           DB_PORT: ${{ job.services.mysql.ports[3306] }}
