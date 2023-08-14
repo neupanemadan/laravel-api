@@ -19,6 +19,8 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     steps:
       - uses: actions/checkout@v1
+      - name: Setup PHP 8.2
+        run: sudo update-alternatives --set php /usr/bin/php8.2
       - name: Copy .env
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
         working-directory: ./src
