@@ -37,6 +37,11 @@ jobs:
         working-directory: ./src
       - name: Generate Migrate
         run: php artisan migrate
+        env:
+          DB_PORT: ${{ job.services.mysql.ports[3306] }}
+          DB_DATABASE: laravel_api
+          DB_USER: root
+
         working-directory: ./src
       - name: Execute tests (Unit and Feature tests) using PHPUnit
         env:
