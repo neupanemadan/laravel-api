@@ -33,8 +33,8 @@ services:
     build: 
       context: ./php
       dockerfile: Dockerfile
-    command: >
-      bash -c "chmod -R 777 /var/www/storage/ /var/www/bootstrap/cache"
+    # command: >
+    #   bash -c "chmod -R 777 /var/www/storage/ /var/www/bootstrap/cache"
     volumes:
       - ./src:/var/www
     ports:
