@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -14,7 +15,8 @@ class TaskController extends Controller
 
     public function index()
     {
-        $tasks = Task::all();
+        $user = Auth::user();
+        $tasks = Task::where('user_id', $user->id)->get();
         return response()->json([
             'status' => 'success',
             'tasks' => $tasks,
@@ -30,12 +32,15 @@ class TaskController extends Controller
             'priority' => 'required|string',
         ]);
 
+        $user = Auth::user(); // Get the logged-in user
+
         $task = Task::create([
             'name' => $request->name,
             'start_date' => $request->start_date,
             'end_date' => $request->end_date,
             'priority' => $request->priority,
             'remarks' => $request->remarks,
+            'user_id' => $user->id,
         ]);
 
         return response()->json([
